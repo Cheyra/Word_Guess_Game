@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+    <meta charset="UTF-8" />
+
+    <title>Pokemon Word-Catch</title>
+    <!-- link to css -->
+    <link rel="stylesheet" type="text/css" media="screen" href="game.css" />
+    <!--Link to Bootstrap CSS-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+    crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+    crossorigin="anonymous"></script>
+
+    <!--Links to Bootstrap JS-->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="top">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <h1>Welcome to the Pokemon Word-Catch game</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <h2> Spell the Pokemon correctly to catch it! Press GO! to get started</h2>
+                </div>
+            </div>
+        </div>
+
+<br>
+<br>
+    <br>   
+    <div class="row"> 
+    <div class="col-md-12 text-center">
+            <p id="head">Pokemon to guess
+                <br>
+                <br>
+                <span id="wordAnswer"></span>
+            </p>
+        </div>
+        </div>
+
+                <div class="row">
+                    <div class="col-md-9">
+                        <p>Pokemon Caught:
+                            <span id="wins"></span>
+                        </p>
+                    </div>
+                    
+                    <div class="col-md-3 align-right lG">
+                        <div class="box">
+
+                            <p class="lettersG">Letters you Guessed</p>
+                            <p>
+                                <span id="letterGuessed"></span>
+                            </p>
+                            </div>
+                        </div>
+                        </div>
+
+
+                <div class="row">
+                    <div class="col-md-9">
+
+                        <p>Pokemon Escaped:
+                            <span id="losses"></span>
+                        </p>
+                    </div>
+                
+            
+            <div class="col-md-3 align-right">
+            
+                        <p class="left">Number of guesses remaining:
+                            <span id="guessesLeft"></span>
+                        </p>
+                    </div>
+                </div>
+            
+        
+
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <button id="start"> GO!</button>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <button>
+                    <a href="game.html">Start Over</a>
+                </button>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-12 text-center ">
+                <h3 class="tagLine">Gotta spell them all!</h3>
+            </div>
+        </div>
+    </div>
+
+
+    <script type="text/javascript">
+        //define variables
+        var wins = 0
+
+        
+        // list of possible words to guess 
+        var word = ["BULBASAUR", "TENTACOOL", "STARMIE", "PIKACHU", "TEDDYURSA", "RHYDON", "PIPLUP", "SQUIRTLE", "EEVE", "CHARMANDER", "GOLDUCK", "TOTODILE", "SCYTHER", "GEODUDE", "GOLDEEN",];
+        //computer randomly selects word from array
+        var computerWord = word[Math.floor(Math.random() * word.length)];
+        var guessesLeft = 6;
+        var originalLength = computerWord.length;
+        var losses = 0
+        var remainingLetters = computerWord.length;
+        var answers = [];
+        var guesses = document.getElementById("letterGuessed")
+
+
+        //creates an event listener so the game starts when player presses Go!
+        document.getElementById("start").addEventListener("click", game);
+        function game() {
+            //Fun theme music
+            var audio = new Audio('magical_celtic.mp3');
+            audio.play();
+            //////////////////////////////////////////////////////////////////////////////////////////////
+            // creates a function to reset variables if player wins or loses 
+            function resetGame() {
+
+                guessesLeft = 6;
+                answers.length = 0;
+                guesses.innerHTML = ""
+                computerWord = word[Math.floor(Math.random() * word.length)];
+                remainingLetters = computerWord.length;
+                originalLength = computerWord.length;
+            };
+
+            resetGame();
+
+
+            for (i = 0; i < originalLength; i++) {
+                answers.push("_");
+                answers.toString()
+                document.getElementById("wordAnswer").innerHTML = answers.join(" ");
+
+            }
+            /////////////////////////////////////////////////////////////////////////////////////////////////
+
+            //  listen for key stroke 
+            document.onkeyup = function (event) {
+
+                var audio = new Audio('click.mp3');
+                audio.play()
+
+
+                //displays letters pressed in lettersGuessed span
+
+                var keyPressed = keyPressed || window.event,
+                    charCode = keyPressed.keyCode || keyPressed.which,
+                    letterGuessed = String.fromCharCode(charCode);
+                guesses.innerHTML += letterGuessed;
+
+
+
+               
+
+                //allows access to losses and guesses left score
+                document.getElementById("guessesLeft").innerHTML = guessesLeft;
+                document.getElementById("losses").innerHTML = losses;
+                document.getElementById("wins").innerHTML = wins;
+
+                ////checking if different variables are working correctly
+
+                console.log(originalLength)
+                console.log(computerWord)
+                console.log(answers)
+                console.log(guessesLeft)
+
+                //if your guesses left reach 0 you lose and have to start over
+                if (guessesLeft === -1) {
+                    alert("Sorry you lost");
+                    losses++;
+                    resetGame();
+                }
+                // Prevents duplicate answers being guessed
+                if (answers.indexOf(letterGuessed) === -1) {
+                  
+                    // reduces the guessesLeft score by one each time a key is pressed
+                    guessesLeft--
+
+                    //Pushes correct guesses into answer and replaces underscores
+                    if (remainingLetters > 0) {
+                        var test = letterGuessed
+
+                        for (var j = 0; j < computerWord.length; j++) {
+                            if (computerWord[j] === test) {
+                                answers[j] = test;
+                               
+                                if (guessesLeft < 6) { guessesLeft++ }
+                                remainingLetters--;
+
+                                document.getElementById("wordAnswer").innerHTML = answers.join(" ");
+                            }
+                        }
+                    }
+
+
+                    ////Displays winning message if winning condition met
+                    if (remainingLetters === 0) {
+                        wins++;
+
+                        
+                        alert("Congratulations! You caught " +  computerWord +"! Press GO to try to catch a new Pokemon!");
+                    }
+                }
+                ////////////////////////////////////////////////////////////////////////////////////////////            
+                // Alerts player if they have picked the same letter to try again
+                else if (answers.indexOf(letterGuessed) !== -1) {
+                    alert("You already pressed that button. Try Again")
+
+                }
+
+            }
+        }
+
+////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+/////////////////////////////////////////////////////////////////////
+    </script>
+
+
+
+</body>
+
+</html>

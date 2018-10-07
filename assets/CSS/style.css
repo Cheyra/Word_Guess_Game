@@ -1,0 +1,29 @@
+body {background-image: url(https://media0.giphy.com/media/DRfu7BT8ZK1uo/giphy.gif?cid=3640f6095bb8e2de424746334d7ac043.jpg); font-size :30px; font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif}
+.top {background-color: yellow; color:rgb(22, 55, 92);
+    width:100%;
+    text-align: center;
+font-family: cursive}
+    .lG{
+       float: right;
+       margin-right:0px;
+       width:600px
+    }
+    #head {font-size:45px; color:aqua}
+    .box {
+    font-size:20px }
+    .lettersG {width:400px}
+    .left {width:600px}
+
+ .tagLine { color: aqua; font-size: 45px; color: aqua}
+
+#wordAnswer {background-color:yellow;
+}
+
+
+p { color:aqua; font-size:30px}
+#wins { color: aqua} 
+
+
+
+
+/*https://i.pinimg.com/originals/03/15/e9/0315e997ab28f4f837fd68a23c92b9a1.jpg
